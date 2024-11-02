@@ -1,9 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv'
+import cors from 'cors'
 
 dotenv.config();
 
 const app = express();
+app.use(cors())
+
 const API_KEY = process.env.ITCH_IO_KEY;
 
 app.get("/my-games", async (req, res) => {
