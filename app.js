@@ -27,7 +27,7 @@ function formatGamesData(games) {
 }
 
 function getGameImages(games) {
-  return games.map(({ cover_url }) => cover_url)
+  return games.map(({ cover_url, title }) => {image: cover_url, title})
 }
 
 app.get("/my-games", async (req, res) => {
