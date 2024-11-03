@@ -26,6 +26,14 @@ function formatGamesData(games) {
   return data;
 }
 
+function getGameImages(games) {
+  const images = games.map(({ cover_url }) => {
+    return cover_url
+  })
+
+  return images;
+}
+
 app.get("/my-games", async (req, res) => {
   try {
     const response = await fetch(`https://itch.io/api/1/${API_KEY}/my-games`);
@@ -38,6 +46,19 @@ app.get("/my-games", async (req, res) => {
     res.status(500).json({ error: "Erro ao obter dados" });
   }
 });
+
+app.get("/game-covers", async (req, res) => {
+  try {
+    const response = await fetch(`https://itch.io/api/1/${API_KEY}/my-games`);
+    const data = await response.json();
+
+    const gameImages = getGameImages(data.games);
+
+    res.json(gameImages);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao obter dados" });
+  }
+})
 
 app.listen(3000, () => {
   console.log("Servidor rodando na porta 3000");
